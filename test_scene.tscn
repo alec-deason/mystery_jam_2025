@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://b572w8o6mygsf"]
+
+[ext_resource type="Script" uid="uid://dar1locaxmybd" path="res://addons/YarnSpinner-Godot/Runtime/Views/LineView.cs" id="1_ia1lp"]
+[ext_resource type="Script" uid="uid://bqtgfhamg08d8" path="res://addons/YarnSpinner-Godot/Runtime/DialogueRunner.cs" id="2_sasra"]
+[ext_resource type="Resource" uid="uid://bfxl48dikljdu" path="res://test.yarnproject" id="3_sasra"]
+[ext_resource type="Script" uid="uid://c8ksxvlfm8kyb" path="res://addons/YarnSpinner-Godot/Runtime/Views/OptionsListView.cs" id="4_coq8p"]
+[ext_resource type="PackedScene" uid="uid://b56ngcrq31nc5" path="res://addons/YarnSpinner-Godot/Scenes/OptionView.tscn" id="5_2nij2"]
+
+[node name="TestScene" type="Node2D"]
+
+[node name="LineView" type="Node" parent="." node_paths=PackedStringArray("characterNameText", "continueButton")]
+script = ExtResource("1_ia1lp")
+viewControlPath = NodePath("../lines")
+lineTextPath = NodePath("../lines")
+characterNameText = NodePath("../name")
+continueButton = NodePath("../Button")
+metadata/_custom_type_script = "uid://dar1locaxmybd"
+
+[node name="DialogueRunner" type="Node" parent="." node_paths=PackedStringArray("dialogueViews")]
+script = ExtResource("2_sasra")
+yarnProject = ExtResource("3_sasra")
+dialogueViews = [NodePath("../LineView"), NodePath("../OptionsListView")]
+startNode = "Start"
+metadata/_custom_type_script = "uid://bqtgfhamg08d8"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 344.0
+offset_top = 446.0
+offset_right = 352.0
+offset_bottom = 506.0
+text = "Continue
+"
+
+[node name="name" type="RichTextLabel" parent="."]
+offset_left = 51.0
+offset_top = 25.0
+offset_right = 91.0
+offset_bottom = 65.0
+
+[node name="lines" type="RichTextLabel" parent="."]
+offset_left = 142.0
+offset_top = 24.0
+offset_right = 905.0
+offset_bottom = 400.0
+text = "test
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 309.0
+offset_top = 737.0
+offset_right = 1056.0
+offset_bottom = 1027.0
+
+[node name="OptionsListView" type="Node" parent="." node_paths=PackedStringArray("viewControl", "boxContainer")]
+script = ExtResource("4_coq8p")
+optionViewPrefab = ExtResource("5_2nij2")
+viewControl = NodePath("../VBoxContainer")
+boxContainer = NodePath("../VBoxContainer")
+metadata/_custom_type_script = "uid://c8ksxvlfm8kyb"

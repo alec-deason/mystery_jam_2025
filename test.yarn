@@ -1,0 +1,41 @@
+title: Start
+---
+<<declare $door_locked = true >>
+<<declare $door_open = false >>
+<<declare $key_taken = false >>
+You're in a room that's empty except for a table in the center and a door to the north.
+
+-> focus on the table
+    <<jump Table>>
+-> unlock the door <<if $key_taken and $door_locked>>
+    You unlock the door
+    <<set $door_locked to false>>
+    <<jump Start>>
+-> try to open the door <<if not $door_open and $door_locked>>
+        The door is locked
+        <<jump Start>>
+-> open the door <<if not $door_open and not $door_locked>>
+        You open the door
+        << set $door_open to true >>
+        <<jump Start>>
+-> go through the door <<if $door_open>>
+        <<jump Win>>
+===
+title: Table
+---
+<<if $key_taken>>
+The table is empty
+<<else>>
+There is a key on the table
+<<endif>>
+-> Take the key <<if not $key_taken>>
+    You pick up the key
+    <<set $key_taken to true>>
+    <<jump Table>>
+-> back to the room
+    <<jump Start>>
+===
+title: Win
+---
+You Win!
+===
